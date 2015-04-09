@@ -28,7 +28,7 @@ blocks = soup.findAll('div', {'class':'dataset-resource'})
 
 for block in blocks:
 
-	link = block.li.a['href'][1]
+	link = block.findAll('href')[1]
 	print link
 	
 	'''
