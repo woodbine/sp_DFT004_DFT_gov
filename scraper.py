@@ -30,11 +30,9 @@ for block in blocks:
 
 	a = block.findAll('a')[2]
 	link = a['href']
-	print link
+	title = block.findAll('div',{'class':'inner2'})[2]
 	
 	'''
-	titles = block.findAll('div',{'class':'inner2'})
-	
 	for title in titles:
 		print title
 		titleTest = title.find('download')
@@ -48,10 +46,10 @@ for block in blocks:
 			csvMth = convert_mth_strings(csvMth);
 		
 			filename = entity_id + "_" + csvYr + "_" + csvMth
-		
+	
 			todays_date = str(datetime.now())
 		
 			scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
 			
 			print filename
-		'''
+	'''
