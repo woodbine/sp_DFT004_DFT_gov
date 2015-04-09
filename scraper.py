@@ -29,11 +29,11 @@ blocks = soup.findAll('div', {'class':'dataset-resource'})
 for block in blocks:
 
 	link = block.li.a['href']
-	print link
-	
-	titles = block.findAll('div',{'class':'inner2'}).contents[0]
+	titles = block.findAll('div',{'class':'inner2'})
 	
 	for title in titles:
+		print title
+		'''
 		titleTest = title.find('download')
 		if titleTest == None:
 			print 'not a download link'
@@ -51,3 +51,4 @@ for block in blocks:
 			scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
 			
 			print filename
+		'''
