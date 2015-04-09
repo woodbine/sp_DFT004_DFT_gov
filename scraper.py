@@ -3,7 +3,7 @@
 import scraperwiki
 import urllib2
 from datetime import datetime
-import demjson
+from bs4 import BeautifulSoup
 
 # Set up variables
 entity_id = "DFT004_DFT_gov"
