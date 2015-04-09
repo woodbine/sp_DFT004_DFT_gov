@@ -31,7 +31,7 @@ for block in blocks:
 	link = block.li.a['href']
 	print link
 	
-	title = block.find('div',{'class':'inner2')}.contents[0]
+	title = block.find('div',{'class':'inner2'}).contents[0]
 	print title
 	
 	'''
