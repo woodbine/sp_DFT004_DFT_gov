@@ -34,24 +34,19 @@ for block in blocks:
 	title = title.strip()
 	print title
 	
-	'''
-	for title in titles:
-		print title
-		titleTest = title.find('download')
-		if titleTest == None:
-			print 'not a download link'
-		else:
-			# create the right strings for the new filename
-			title = title.strip()
-			csvYr = title.split(' ')[-2]
-			csvMth = title.split(' ')[-3][:3]
-			csvMth = convert_mth_strings(csvMth);
+	if len(title.split()) > 3:
+		print "not a usable file"
+	else:
+		# create the right strings for the new filename
+		title = title.strip()
+		csvYr = title.split(' ')[-2]
+		csvMth = title.split(' ')[-3][:3]
+		csvMth = convert_mth_strings(csvMth);
 		
-			filename = entity_id + "_" + csvYr + "_" + csvMth
+		filename = entity_id + "_" + csvYr + "_" + csvMth
 	
-			todays_date = str(datetime.now())
+		todays_date = str(datetime.now())
 		
-			scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
+		scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
 			
-			print filename
-	'''
+		print filename
