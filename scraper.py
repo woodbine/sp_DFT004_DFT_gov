@@ -30,7 +30,7 @@ for block in blocks:
 
 	a = block.findAll('a')[2]
 	link = a['href']
-	title = block.findAll('div',{'class':'inner2'})
+	title = block.findAll('div',{'class':'inner2'}).getText()
 	print title
 	
 	'''
