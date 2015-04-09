@@ -31,26 +31,23 @@ for block in blocks:
 	link = block.li.a['href']
 	print link
 	
-	title = block.find('div',{'class':'inner2'}).contents[0]
-	print title
+	titles = block.findAll('div',{'class':'inner2'}).contents[0]
 	
-	'''
-	titleTest = title.find('Download CSV')
+	for title in titles:
+		titleTest = title.find('download')
+		if titleTest == None:
+			print 'not a download link'
+		else:
+			# create the right strings for the new filename
+			title = title.strip()
+			csvYr = title.split(' ')[-2]
+			csvMth = title.split(' ')[-3][:3]
+			csvMth = convert_mth_strings(csvMth);
 		
-	if titleTest == None:
-		print 'not a csv'
-	else:
-		# create the right strings for the new filename
-		title = title.strip()
-		csvYr = title.split(' ')[-1]
-		csvMth = title.split(' ')[-2][:3]
-		csvMth = convert_mth_strings(csvMth);
+			filename = entity_id + "_" + csvYr + "_" + csvMth
 		
-		filename = entity_id + "_" + csvYr + "_" + csvMth
+			todays_date = str(datetime.now())
 		
-		todays_date = str(datetime.now())
-		
-		scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
+			scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
 			
-		print filename
-	'''
+			print filename
