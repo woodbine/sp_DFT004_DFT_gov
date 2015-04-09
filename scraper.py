@@ -7,7 +7,7 @@ import demjson
 
 # Set up variables
 entity_id = "DFT004_DFT_gov"
-url = "http://data.gov.uk/api/2/rest/package/financial-transactions-data-dft"
+url = "http://data.gov.uk/dataset/financial-transactions-data-dft"
 
 # Set up functions
 def convert_mth_strings ( mth_string ):
@@ -20,48 +20,37 @@ def convert_mth_strings ( mth_string ):
 
 # pull down the content from the webpage
 html = urllib2.urlopen(url)
-json = demjson.decode(html)
-print json
+soup = BeautifulSoup(html)
 
-'''
+
 # find all entries with the required class
-blocks = soup.findAll('li', {'class':'publication document-row'})
+blocks = soup.findAll('div', {'class':'dataset-resource'})
 
 for block in blocks:
 
-	link = block.a['href']
-
-	# add the right prefix onto the url
-	pageUrl = link.replace("/preview","")
-	pageUrl = pageUrl.replace("/government","http://www.gov.uk/government")
+	link = block.li.a['href']
+	print link
 	
-	html2 = urllib2.urlopen(pageUrl)
-	soup2 = BeautifulSoup(html2)
+	title = block.find('div',{'class':'inner2')}.contents[0]
+	print title
 	
-	fileBlocks = soup2.findAll('div',{'class':'attachment-details'})
-	
-	for fileBlock in fileBlocks:
-		fileUrl = fileBlock.a['href']
-		fileUrl = fileUrl.replace("/government","http://www.gov.uk/government")
-		fileUrl = fileUrl.replace(".csv/preview",".csv")
+	'''
+	titleTest = title.find('Download CSV')
 		
-		title = fileBlock.h2.contents[0]
-		titleTest = title.find('Download CSV')
+	if titleTest == None:
+		print 'not a csv'
+	else:
+		# create the right strings for the new filename
+		title = title.strip()
+		csvYr = title.split(' ')[-1]
+		csvMth = title.split(' ')[-2][:3]
+		csvMth = convert_mth_strings(csvMth);
 		
-		if titleTest == None:
-			print 'not a csv'
-		else:
-			# create the right strings for the new filename
-			title = title.strip()
-			csvYr = title.split(' ')[-1]
-			csvMth = title.split(' ')[-2][:3]
-			csvMth = convert_mth_strings(csvMth);
+		filename = entity_id + "_" + csvYr + "_" + csvMth
 		
-			filename = entity_id + "_" + csvYr + "_" + csvMth
+		todays_date = str(datetime.now())
 		
-			todays_date = str(datetime.now())
-		
-			scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
+		scraperwiki.sqlite.save(unique_keys=['l'], data={"l": fileUrl, "f": filename, "d": todays_date })
 			
-			print filename
-'''
+		print filename
+	'''
