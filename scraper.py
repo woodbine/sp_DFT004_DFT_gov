@@ -28,12 +28,14 @@ blocks = soup.findAll('div', {'class':'dataset-resource'})
 
 for block in blocks:
 
-	link = block.li.a['href']
-	titles = block.findAll('div',{'class':'inner2'}).contents[0]
+	link = block.li.a['href'][1]
+	print link
+	
+	'''
+	titles = block.findAll('div',{'class':'inner2'})
 	
 	for title in titles:
 		print title
-		'''
 		titleTest = title.find('download')
 		if titleTest == None:
 			print 'not a download link'
