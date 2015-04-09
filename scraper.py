@@ -7,7 +7,7 @@ import demjson
 
 # Set up variables
 entity_id = "DFT004_DFT_gov"
-url = "http://data.gov.uk/dataset/financial-transactions-data-dft"
+url = "http://data.gov.uk/api/2/rest/package/financial-transactions-data-dft"
 
 # Set up functions
 def convert_mth_strings ( mth_string ):
@@ -21,7 +21,7 @@ def convert_mth_strings ( mth_string ):
 # pull down the content from the webpage
 html = urllib2.urlopen(url)
 json = demjson.decode(html)
-
+print json
 
 '''
 # find all entries with the required class
