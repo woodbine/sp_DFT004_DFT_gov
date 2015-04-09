@@ -30,6 +30,7 @@ for block in blocks:
 
 	link = block.li.a['href']
 	titles = block.findAll('div',{'class':'inner2'})
+	titles = title.contents[0]
 	
 	for title in titles:
 		print title
