@@ -107,17 +107,17 @@ for block in blocks:
     if not a:
         continue
     link = a['href']
-    title = block.find('div',{'class':'inner2'}).getText()
-    title = title.strip()
+    title = block.find('span','inner-cell').text.strip().split(' ')[0].strip()
+    csvYr = title.split('/')[-1]
+    csvMth = title.split('/')[0]
+    if 'to 11th May 2010' in block.find('span','inner-cell').text.strip():
+        csvMth = 'Q0'
+        csvYr = '2010'
+    if 'April 2009 to March 2010' in block.find('span','inner-cell').text.strip():
+        csvMth = 'Y1'
+        csvYr = '2009'
+    data.append([csvYr, csvMth, link])
 
-    if len(title.split()) > 3:
-        pass
-    else:
-        title = title.strip()
-        csvYr = title.split(' ')[-2]
-        csvMth = title.split(' ')[-3][:3]
-        csvMth = convert_mth_strings(csvMth.upper())
-        data.append([csvYr, csvMth, link])
 
 #### STORE DATA 1.0
 
@@ -137,6 +137,3 @@ for row in data:
 
 if errors > 0:
     raise Exception("%d errors occurred during scrape." % errors)
-
-
-#### EOF
