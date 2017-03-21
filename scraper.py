@@ -84,7 +84,7 @@ def convert_mth_strings ( mth_string ):
 #### VARIABLES 1.0
 
 entity_id = "DFT004_DFT_gov"
-url = "http://data.gov.uk/dataset/financial-transactions-data-dft"
+url = "https://data.gov.uk/dataset/financial-transactions-data-dft"
 errors = 0
 data = []
 
